@@ -1,0 +1,17 @@
+---
+- name: Install Apache web server
+  hosts: dbservers
+  become: true
+  tasks:
+    - name: Install Apache web server
+      package:
+        name: httpd
+        state: latest
+    - name: Start Apache web server
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+
+

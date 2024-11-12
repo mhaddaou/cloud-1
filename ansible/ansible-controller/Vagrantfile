@@ -1,0 +1,38 @@
+Vagrant.configure("2") do |config|
+  # Base box definition
+  config.vm.box = "ubuntu/trusty64"
+
+  # Define ansible-controller VM
+  config.vm.define "ansible-controller" do |controller|
+    controller.vm.hostname = "ansible-controller"
+    controller.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    controller.vm.provision "file", source: './ansible-project' , destination: "/home/vagrant/"
+    controller.vm.provision "shell", path: "./scripts/controller.sh"
+  end
+  
+  config.vm.define "web" do |web|
+    web.vm.hostname = "web"
+    web.vm.network "private_network", ip: "192.168.56.10"
+    web.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    # web.vm.provision "file", source: '/Users/mhaddaou/.ssh/id_ecdsa.pub' , destination: "~/.ssh/me.pub"
+    web.vm.provision "shell", path: "./scripts/db.sh"
+  end
+  config.vm.define "db" do |db|
+    db.vm.hostname = "db"
+    db.vm.network "private_network", ip: "192.168.56.11"
+    db.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    # db.vm.provision "file", source: '/Users/mhaddaou/.ssh/id_ecdsa.pub' , destination: "~/.ssh/me.pub"
+    db.vm.provision "shell", path: "./scripts/db.sh"
+    config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+    config.vm.usable_port_range = (8000..9000)
+  end
+end
