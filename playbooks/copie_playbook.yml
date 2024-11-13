@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+    - name: Create destination folder on hosts
+      file:
+        path: /home/vagrant/
+        state: directory
+        owner: vagrant
+        group: vagrant
+  tasks:
+    - name: Copy folder from controller to hosts
+      copy:
+        src: /Users/mhaddaou/goinfre/cloud-1/project
+        dest: /home/vagrant/
