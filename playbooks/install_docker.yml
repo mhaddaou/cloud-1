@@ -3,24 +3,30 @@
   hosts: all
   become: true
   tasks:
-    - name: Install Docker
+    # - name: install docker
+    #   apt:
+    #     name: docker.io
+    #     state: present
+    #     update_cache: yes
+
+    # - name: add docker user
+    #   shell: usermod -aG docker $USER
+
+    # - name: install docker-ce
+    #   shell: echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" | tee /etc/apt/sources.list.d/docker.list 
+ 
+    # - name: Ensure /etc/apt/keyrings directory exists
+    #   file:
+    #     path: /etc/apt/keyrings
+    #     state: directory
+    #     mode: '0755'
+      
+    # - name: import the gpg key
+    #   shell: curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    
+    - name: Update APT package index
       apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - docker.io
         update_cache: yes
-        state: present
 
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    - name: Add user to docker group
-      user:
-        name: "{{ ansible_ssh_user }}"
-        groups: docker
-        append: yes
+    - name : install docker-ce
+      shell: apt install  docker-ce docker-ce-cli containerd.io
