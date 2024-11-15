@@ -1,8 +1,0 @@
----
-- name: Run Make Command
-  hosts: all
-  tasks:
-    - name: Run make in project directory
-      command: make
-      args:
-        chdir: /home/vagrant/project

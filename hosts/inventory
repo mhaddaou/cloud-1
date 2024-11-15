@@ -2,4 +2,3 @@
 192.168.56.10 ansible_ssh_user=vagrant
 192.168.56.11 ansible_ssh_user=vagrant
 192.168.56.12 ansible_ssh_user=vagrant
-

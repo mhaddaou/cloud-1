@@ -1,0 +1,29 @@
+---
+- name: Infrastructure
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create directories for Docker volumes
+      file: 
+        path: /home/vagrant/docker_volumes
+        state: directory
+
+    - name: Create directories for data
+      file:
+        path: /home/vagrant/docker_volumes/data
+        state: directory
+     
+    - name: Create directories for wordpress
+      file:
+        path: /home/vagrant/docker_volumes/data/wp
+        state: directory
+    
+    - name: Create directories for database
+      file:
+        path: /home/vagrant/docker_volumes/data/db
+        state: directory
+    
+    - name: Create the directory for Docker GPG key
+      file:
+        path: /etc/apt/keyrings
+        state: directory

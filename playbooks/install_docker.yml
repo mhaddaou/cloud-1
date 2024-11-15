@@ -13,56 +13,44 @@
           - apt-transport-https
           - ca-certificates
           - curl
+          - make
           - software-properties-common
-          - python3
-          - python3-pip
-          - python-is-python3
         state: present
-    - name: Install Python packages for SSL verification
-      pip:
-        name:
-          - urllib3
-          - pyOpenSSL
-          - ndg-httpsclient
-          - pyasn1
-        state: present
-
-    - name: Add Docker’s official GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-        validate_certs: no
-
-    - name: Add Docker repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
-        state: present
-
-    - name: Install Docker
+    
+    - name: Install docker.io
       apt:
-        name: docker-ce
+        name: docker.io
+        state: present
+    
+    - name: Enable docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name:   docker-ce
+      shell: echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" | sudo tee /etc/apt/sources.list.d/docker.list 
+    
+    - name: import gpg key
+      shell: curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    
+    - name: install gpg
+      apt:
+        name: gpg
         state: present
 
-    - name: Ensure Docker is running
-      service:
-        name: docker
-        state: started
-        enabled: yes
+    - name: update apt package index
+      apt:
+        update_cache: yes
+    
+    - name: Install docker-compose using apt
+      apt:
+        name: docker-compose
+        state: present
+    
+    # - name: upgrade system
+    #   shell: apt-get upgrade -y
 
-    - name: Add user to the docker group
-      user:
-        name: "{{ ansible_user }}"
-        group: docker
-        append: yes
-
-    - name: Install Docker Compose
-      shell: |
-        curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        chmod +x /usr/local/bin/docker-compose
-
-    - name: Verify Docker Compose installation
-      command: /usr/local/bin/docker-compose --version
-      register: compose_version
-
-    - debug:
-        var: compose_version.stdout
+    # - name: Reboot a slow machine that might have lots of updates to apply
+    #   reboot:
+    #     reboot_timeout: 3600

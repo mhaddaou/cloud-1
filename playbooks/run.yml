@@ -1,0 +1,9 @@
+---
+- name: Run the application
+  hosts: all
+  become: yes
+  tasks:
+    - name: Run Docker Compose
+      command: sudo docker-compose up  --build -d
+      args:
+        chdir: /home/vagrant/project

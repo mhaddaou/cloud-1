@@ -13,13 +13,13 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /Users/mhaddaou/docker_volumes/data/wp/
+            device: /home/vagrant/docker_volumes/data/wp/
     mariadb_data:
         driver: local
         driver_opts:
             type: none
             o: bind
-            device: /Users/mhaddaou/docker_volumes/data/db/
+            device: /home/vagrant/docker_volumes/data/db/
 
 services:
   mariadb:

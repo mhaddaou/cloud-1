@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   # Base box definition
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "aspyatkin/ubuntu-20.04-server"
 
   # Define host1 VM
   config.vm.define "host1" do |host1|
@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     end
     host1.vm.provision "shell", path: "./scripts/host.sh"
   end
-
+ install curl gpg upgrade make 
   # Define host2 VM 
   config.vm.define "host2" do |host2|
     host2.vm.hostname = "host2"
