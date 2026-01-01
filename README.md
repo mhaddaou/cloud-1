@@ -432,17 +432,3 @@ terraform apply  # Apply only the changes
 - [Free Domain Names - DuckDNS](https://www.duckdns.org/)
 - [Let's Encrypt - Free SSL](https://letsencrypt.org/)
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Author
-
-Built as part of the 42 School Cloud-1 curriculum.
-
-## Acknowledgments
-
-- Subject by Rémy Léone (rleone@scaleway.com)
-- Based on the Inception project requirements
-- Uses DigitalOcean infrastructure
-- Powered by Terraform and Docker
