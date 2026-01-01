@@ -1,0 +1,18 @@
+# DigitalOcean API Token
+# Get your token from: https://cloud.digitalocean.com/account/api/tokens
+# IMPORTANT: Keep this token secret and never commit it to version control
+do_token = "dop_v1_YOUR_DIGITALOCEAN_API_TOKEN_HERE"
+
+# SSH Key Name
+# This should match the name of an SSH key already added to your DigitalOcean account
+# View your SSH keys: https://cloud.digitalocean.com/account/security
+ssh_key_name = "my-ssh-key"
+
+# DigitalOcean Region
+# Available regions: nyc1, nyc3, sfo3, fra1, lon1, ams3, sgp1, tor1, blr1, etc.
+# Full list: https://docs.digitalocean.com/products/platform/availability-matrix/
+region = "fra1"
+
+# Droplet Name
+# Choose a meaningful name for your droplet
+droplet_name = "my-application-server"
